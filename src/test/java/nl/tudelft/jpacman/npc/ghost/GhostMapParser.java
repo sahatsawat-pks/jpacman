@@ -31,8 +31,6 @@ public final class GhostMapParser extends MapParser {
         this.ghostFactory = ghostFactory;
     }
 
-    //This method only supports clyde for now
-    //You should add extra cases for ghosts you need.
     @Override
     protected void addSquare(Square[][] grid, List<Ghost> ghosts,
                              List<Square> startPositions, int x, int y, char c) {
@@ -40,8 +38,24 @@ public final class GhostMapParser extends MapParser {
             case 'C':
                 grid[x][y] = makeGhostSquare(ghosts, ghostFactory.createClyde());
                 break;
+            case 'B':
+                grid[x][y] = makeGhostSquare(ghosts, ghostFactory.createBlinky());
+                break;
+            case 'I':
+                grid[x][y] = makeGhostSquare(ghosts, ghostFactory.createInky());
+                break;
+            case 'K':
+                grid[x][y] = makeGhostSquare(ghosts, ghostFactory.createPinky());
+                break;
+            case 'S':
+                Square playerSquare = getBoardCreator().createGround();
+                grid[x][y] = playerSquare;
+                startPositions.add(playerSquare);
+                break;
             default:
                 super.addSquare(grid, ghosts, startPositions, x, y, c);
         }
     }
 }
+
+
